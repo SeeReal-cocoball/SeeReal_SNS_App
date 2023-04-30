@@ -1,4 +1,4 @@
-# SeeReal SNS Application 
+# SeeReal SNS Application 🧃
 *An SNS application that allows you to share everyday moments with friends and write a personal diary about those moments.*
 
 ## 프로젝트 소개
