@@ -22,3 +22,6 @@
 ![image](https://user-images.githubusercontent.com/111233054/235342343-90e9b4ab-8f3a-4aad-90ac-e9df4920dcf8.png)
 ![image](https://user-images.githubusercontent.com/111233054/235342349-087dfe88-856f-4242-9ec4-0c3c0c5dae00.png)
 ![image](https://user-images.githubusercontent.com/111233054/235342354-3871f341-a821-4acf-8a5a-677e02f1a015.png)
+
+- Component
+![image](https://user-images.githubusercontent.com/111233054/235342499-2c0326f4-ab6b-4e18-911c-5b77d6f9bbf5.png)
