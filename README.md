@@ -16,4 +16,9 @@
 ## 어플리케이션 소개 및 주요 기능
 
 - UX/UI
-
+![image](https://user-images.githubusercontent.com/111233054/235342318-3f515158-6875-4a78-b224-5c860120f91f.png)
+![image](https://user-images.githubusercontent.com/111233054/235342330-9afad20c-2db2-4c37-b391-6ed066c02a33.png)
+![image](https://user-images.githubusercontent.com/111233054/235342340-57edda1c-dab5-4325-94e7-311eb29163ae.png)
+![image](https://user-images.githubusercontent.com/111233054/235342343-90e9b4ab-8f3a-4aad-90ac-e9df4920dcf8.png)
+![image](https://user-images.githubusercontent.com/111233054/235342349-087dfe88-856f-4242-9ec4-0c3c0c5dae00.png)
+![image](https://user-images.githubusercontent.com/111233054/235342354-3871f341-a821-4acf-8a5a-677e02f1a015.png)
