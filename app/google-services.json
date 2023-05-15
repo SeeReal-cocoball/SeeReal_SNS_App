@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "631542261918",
+    "project_id": "seereallogin",
+    "storage_bucket": "seereallogin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:631542261918:android:a17fbeada9e2a9e06cb38f",
+        "android_client_info": {
+          "package_name": "com.example.seereal_login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "631542261918-85d0jijeel7a82omp7jpaiv94hiqnt5j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.seereal_login",
+            "certificate_hash": "30b24e7c28880e9f70cc598171ccde3a667e7a44"
+          }
+        },
+        {
+          "client_id": "631542261918-o22c3g0i5qlg8gtf2b6he8fmps5vj54t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4D2CdTTfSCXSk-OvkrjZTQ4n63c3liZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "631542261918-o22c3g0i5qlg8gtf2b6he8fmps5vj54t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
