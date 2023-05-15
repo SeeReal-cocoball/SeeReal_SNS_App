@@ -13,7 +13,6 @@ class MyFirebaseMessagingService : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-
         class MyFirebaseMessagingService : FirebaseMessagingService() {
             override fun onNewToken(token: String) {
                 super.onNewToken(token)
