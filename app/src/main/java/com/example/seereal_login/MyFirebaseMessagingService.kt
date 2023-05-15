@@ -1,7 +1,7 @@
 package com.example.seereal_login
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.seereal_login.databinding.ActivityMainBinding
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -20,6 +20,11 @@ class MyFirebaseMessagingService : AppCompatActivity() {
             }
             override fun onMessageReceived(remoteMessage: RemoteMessage) {
                 // FCM 메시지 수신 시 처리할 코드 작성
+                // 메시지가 서버로부터 전달되었을 때 호출
+            }
+
+            private fun sendNotification(datakind: String) {
+                // 전달된 메시지 처리
             }
         }
     }
