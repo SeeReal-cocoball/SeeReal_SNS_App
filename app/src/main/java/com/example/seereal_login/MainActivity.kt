@@ -13,6 +13,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ktx.database
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        // 데이터베이스에서 데이터를 읽거나 쓰려면 databasereference 인스턴스가 필요하다
 
+        // 데이터베이스에서 데이터를 읽거나 쓰려면 databasereference 인스턴스가 필요하다
         val firebaseDatabase = FirebaseDatabase.getInstance() // firebase 인스턴스 초기화
         databaseRef = firebaseDatabase.reference // databasereference 초기화
 
