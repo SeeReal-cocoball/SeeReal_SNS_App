@@ -11,6 +11,7 @@ class MyFirebaseMessagingService : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
         class MyFirebaseMessagingService : FirebaseMessagingService() {
             override fun onNewToken(token: String) {
                 super.onNewToken(token)
