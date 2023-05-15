@@ -19,6 +19,7 @@ class MyFirebaseMessagingService : AppCompatActivity() {
             }
 
 
+
             override fun onMessageReceived(remoteMessage: RemoteMessage) {
                 // FCM 메시지 수신 시 처리할 코드 작성
                 // 메시지가 서버로부터 전달되었을 때 호출
