@@ -12,6 +12,15 @@
         android:theme="@style/Theme.Seereal_login"
         tools:targetApi="31">
         <activity
+            android:name=".SignPassword"
+            android:exported="false" />
+        <activity
+            android:name=".SignNickname"
+            android:exported="false" />
+        <activity
+            android:name=".SignPhoneNumber"
+            android:exported="false" />
+        <activity
             android:name=".MyFirebaseMessagingService"
             android:exported="false" />
         <activity

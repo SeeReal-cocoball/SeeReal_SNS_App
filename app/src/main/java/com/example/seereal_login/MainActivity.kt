@@ -7,8 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.seereal_login.databinding.ActivityMainBinding
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +17,11 @@ class MainActivity : AppCompatActivity() {
     fun navigateToPasswordPage() {
         val intent = Intent(this@MainActivity, PasswordPage::class.java)
         startActivity(intent)
+    }
+
+    fun navigateToRegisterPage() {
+        val intent2 = Intent(this@MainActivity, SignPhoneNumber::class.java)
+        startActivity(intent2)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,11 +39,9 @@ class MainActivity : AppCompatActivity() {
         val phone = binding.phone
         val phoneBtn = binding.phonebtn
 
-
         // 입력 버튼을 누르고 회원 존재 여부를 판단한다
         // 회원이 존재 하지 않으면 register화면으로 넘어가는 팝업이 뜬다 => 구현해야 함
         phoneBtn.setOnClickListener() {
-
             // 사용자가 입력한 전화번호
             val phoneTxt = phone.text.toString()
 
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             if (phoneTxt.isEmpty()) {
                 Toast.makeText(this, "Please enter your phone number", Toast.LENGTH_SHORT)
                     .show()
+
             }
 
             //val valueEventListener = object : ValueEventListener
@@ -59,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                                 "Hi welcome to SeeReal",
                                 Toast.LENGTH_SHORT).show()
                             navigateToPasswordPage()
+                            Log.d("REAL","success")
                         } else {
                             Toast.makeText(
                                 this@MainActivity,
@@ -66,6 +69,8 @@ class MainActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             ).show()
                             // FCM 구현해야함
+                            // 일단은 회원가입 화면으로 바로 넘어가게 구현
+                            navigateToRegisterPage()
                         }
                     }
                    override fun onCancelled(databaseError: DatabaseError) {
