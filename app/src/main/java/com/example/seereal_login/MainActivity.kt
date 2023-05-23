@@ -1,9 +1,11 @@
 package com.example.seereal_login
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.seereal_login.databinding.ActivityMainBinding
 import com.google.firebase.database.*
@@ -46,33 +48,47 @@ class MainActivity : AppCompatActivity() {
             val phoneTxt = phone.text.toString()
 
             // Phone number를 입력하지 않고 버튼을 눌렀을 경우
-            if (phoneTxt.isEmpty()) {
-                Toast.makeText(this, "Please enter your phone number", Toast.LENGTH_SHORT)
-                    .show()
-
-            }
+            if (phoneTxt.isEmpty()) {Toast.makeText(this, "Please enter your phone number", Toast.LENGTH_SHORT).show()}
 
             //val valueEventListener = object : ValueEventListener
-            usersRef.orderByChild("phonenum").equalTo(phoneTxt).addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            Toast.makeText(
-                                this@MainActivity,
-                                "Hi welcome to SeeReal",
-                                Toast.LENGTH_SHORT).show()
-                            navigateToPasswordPage()
-                            Log.d("REAL","success")
-                        } else {
-                            Toast.makeText(
-                                this@MainActivity,
-                                "Phone number not found",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            // FCM 구현해야함
-                            // 일단은 회원가입 화면으로 바로 넘어가게 구현
-                            navigateToRegisterPage()
+            usersRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // 모든 outerkey를 확인해서 사용자가 입력한 전화번호와 일치하는 사용자 정보가 존재하는지 확인
+                    for (outerSnapshot in dataSnapshot.children) {
+                        val outerKey = outerSnapshot.key // 바깥쪽 "key" 값을 가져옴
+                        Log.d("REAL", "Outer Key: $outerKey")
+
+                        // 안쪽 key값 가져오기
+//                        for (innerSnapshot in outerSnapshot.children) {
+//                            val innerKey = innerSnapshot.key // 안쪽 "key" 값을 가져옴
+//                            val innerValue = innerSnapshot.value // 해당 "key"에 대한 값을 가져옴
+//                            Log.d("REAL", "Inner Key: $innerKey, Value: " +
+//                                    "$innerValue")
+//                        }
+
+                        if(phoneTxt === outerKey){
+                            Toast.makeText(this@MainActivity, "welcome", Toast.LENGTH_SHORT).show()
+                        } else{
+                            Toast.makeText(this@MainActivity, "register now", Toast.LENGTH_SHORT).show()
+                            //  회원가입 진행 여부 popup
+                            AlertDialog.Builder(this@MainActivity)
+                                .setTitle("Seereal을 시작해보세요!")
+                                .setMessage("회원가입을 진행하시겠습니까??")
+                                .setPositiveButton("네네!", DialogInterface.OnClickListener { dialog, which ->
+                                    // 회원가입을 하겠다고 클릭했을 경우 전화번호 입력창으로 넘어감
+                                    val intent = Intent(this@MainActivity, SignPhoneNumber::class.java)
+                                    intent.putExtra("newPhoneNumber", phoneTxt) // 입력한 번화번호 넘겨주기
+                                    startActivity(intent)
+                                    })
+                                .setNegativeButton("아니요", DialogInterface.OnClickListener { dialog, which ->
+                                    Toast.makeText(this@MainActivity, "What?????", Toast.LENGTH_SHORT).show()
+                                })
+                                .setNeutralButton("...",DialogInterface.OnClickListener { dialog, which ->
+                                    Toast.makeText(this@MainActivity, "...", Toast.LENGTH_SHORT).show() })
+                                .show()
                         }
                     }
+                }
                    override fun onCancelled(databaseError: DatabaseError) {
                         // 에러 처리
                         Toast.makeText(

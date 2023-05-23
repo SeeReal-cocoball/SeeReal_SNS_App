@@ -1,23 +1,18 @@
 package com.example.seereal_login
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.example.seereal_login.databinding.ActivitySignNicknameBinding
-import com.example.seereal_login.databinding.ActivitySignPhoneNumberBinding
 import com.google.firebase.database.*
 
 class SignNickname : AppCompatActivity() {
 
     private val binding by lazy { ActivitySignNicknameBinding.inflate(layoutInflater) }
     private lateinit var databaseRef: DatabaseReference  // database reference 가져오기
-
-    // 비밀번호 입력창으로 이동
-    fun navigateToSignPassword() {
-        val intent = Intent(this@SignNickname, SignPassword::class.java)
-        startActivity(intent)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,16 +49,23 @@ class SignNickname : AppCompatActivity() {
                             "닉네임이 존재합니다. 다시 입력해주세요",
                             Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(
-                            this@SignNickname,
-                            "안녕하세요 ${signNickNameInput} 님!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        // 정보도 넘겨야 함
-                        val sendText = Intent(this@SignNickname, SignPassword::class.java)
-                        sendText.putExtra("signPhoneNickName", signNickNameInput)
-                        startActivity(sendText)
-                        navigateToSignPassword()
+                        //  중복 닉네임 검사 후 진짜로 이 닉네임을 사용할 건지 묻는 popup
+                        AlertDialog.Builder(this@SignNickname)
+                            .setTitle("닉네임 설정")
+                            .setMessage("${signNickNameInput}으로 회원가입을 진행할까?")
+                            .setPositiveButton("네네!", DialogInterface.OnClickListener { dialog, which ->
+                                // 회원가입을 하겠다고 클릭했을 경우
+                                // 정보도 넘겨야 함
+                                val sendText = Intent(this@SignNickname, SignPassword::class.java)
+                                sendText.putExtra("signPhoneNickName", signNickNameInput)
+                                startActivity(sendText)
+                            })
+                            .setNegativeButton("아니요", DialogInterface.OnClickListener { dialog, which ->
+                                Toast.makeText(this@SignNickname, "다시 입력하세요", Toast.LENGTH_SHORT).show()
+                            })
+                            .setNeutralButton("...", DialogInterface.OnClickListener { dialog, which ->
+                                Toast.makeText(this@SignNickname, "...", Toast.LENGTH_SHORT).show() })
+                            .show()
                     }
                 }
                 override fun onCancelled(databaseError: DatabaseError) {
