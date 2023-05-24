@@ -57,8 +57,9 @@ class SignNickname : AppCompatActivity() {
                                 // 회원가입을 하겠다고 클릭했을 경우
                                 // 정보도 넘겨야 함
                                 val sendText = Intent(this@SignNickname, SignPassword::class.java)
-                                sendText.putExtra("signPhoneNickName", signNickNameInput)
+                                sendText.putExtra("signNickName", signNickNameInput)
                                 startActivity(sendText)
+                                finish()
                             })
                             .setNegativeButton("아니요", DialogInterface.OnClickListener { dialog, which ->
                                 Toast.makeText(this@SignNickname, "다시 입력하세요", Toast.LENGTH_SHORT).show()

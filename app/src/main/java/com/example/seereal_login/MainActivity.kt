@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 //                                    "$innerValue")
 //                        }
 
-                        if(phoneTxt === outerKey){
+                        if(phoneTxt == outerKey){
                             Toast.makeText(this@MainActivity, "welcome", Toast.LENGTH_SHORT).show()
                         } else{
                             Toast.makeText(this@MainActivity, "register now", Toast.LENGTH_SHORT).show()

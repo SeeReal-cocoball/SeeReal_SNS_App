@@ -1,31 +1,59 @@
 package com.example.seereal_login
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.example.seereal_login.databinding.ActivityMainBinding
+import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.os.Build
+import android.widget.RemoteViews
+import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
-class MyFirebaseMessagingService : AppCompatActivity() {
-    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+const val channelId = "notification_channel"
+const val channelName = "com.example.seereal_login"
+class MyFirebaseMessagingService : FirebaseMessagingService() {
 
-
-        class MyFirebaseMessagingService : FirebaseMessagingService() {
-            override fun onNewToken(token: String) {
-                super.onNewToken(token)
-                // 토큰이 갱실될 때 마다 서버에 토큰을 전달하여 갱신처리를 해야함.
-            }
-            override fun onMessageReceived(remoteMessage: RemoteMessage) {
-                // FCM 메시지 수신 시 처리할 코드 작성
-                // 메시지가 서버로부터 전달되었을 때 호출
-            }
-
-            private fun sendNotification(datakind: String) {
-                // 전달된 메시지 처리
-            }
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        super.onMessageReceived(remoteMessage)
+        if(remoteMessage.getNotification() != null){
+            generateNotification(remoteMessage.notification!!.title!!, remoteMessage.notification!!.body!!)
         }
+    }
+@SuppressLint ("RemoteViewLayout")
+    fun getRemoteView(title:String, message: String): RemoteViews {
+        val remoteView = RemoteViews("com.example.seereal_login",R.layout.notification)
+        remoteView.setTextViewText(R.id.title,title)
+        remoteView.setTextViewText(R.id.message,message)
+        remoteView.setImageViewResource(R.id.app_logo,R.drawable.img)
+
+        return remoteView
+    }
+    private fun generateNotification(title:String, message:String){
+        val intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+        val pendingIntent = PendingIntent.getActivity(this@MyFirebaseMessagingService, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        // channel id, channel name
+        var builder : NotificationCompat.Builder = NotificationCompat.Builder(applicationContext, channelId)
+            .setSmallIcon(R.drawable.img)
+            .setAutoCancel(true)
+            .setVibrate(longArrayOf(1000,1000,1000,1000))
+            .setOnlyAlertOnce(true)
+            .setContentIntent(pendingIntent)
+
+        builder = builder.setContent(getRemoteView(title, message))
+
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
+
+        notificationManager.notify(0, builder.build())
     }
 }
