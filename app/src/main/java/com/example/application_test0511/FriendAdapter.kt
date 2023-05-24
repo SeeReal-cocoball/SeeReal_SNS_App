@@ -3,6 +3,7 @@ package com.example.application_test0511
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.application_test0511.FriendData
 import com.example.application_test0511.databinding.MyfriendsVeiwBinding
 
 class FriendAdapter (val myFriend:MutableList<FriendData>): RecyclerView.Adapter<FriendAdapter
@@ -26,7 +27,7 @@ class FriendAdapter (val myFriend:MutableList<FriendData>): RecyclerView.Adapter
 
     // 받아온 데이터 화면에 연결
     class ViewHolder(val binding:MyfriendsVeiwBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(friend:FriendData) {
+        fun bind(friend: FriendData) {
             binding.nickname.text = friend.nickname
             binding.profilePhoto.text = friend.profile
             binding.userIntroduction.text = friend.introduction

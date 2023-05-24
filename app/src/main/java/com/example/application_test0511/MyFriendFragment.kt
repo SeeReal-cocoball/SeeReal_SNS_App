@@ -64,6 +64,7 @@ class MyFriendFragment : Fragment() {
 
             userFriends.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
+
                     for (friendSnapshot in dataSnapshot.children) {
                         val friendId = friendSnapshot.key  // 유저의 친구들 식별자 가져오기
 
