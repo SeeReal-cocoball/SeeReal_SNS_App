@@ -2,10 +2,11 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()  // Maven Central repository
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'  // 여기에 플러그인 의존성을 추가합니다.
+        classpath 'com.android.tools.build:gradle:7.4.1'
+        classpath 'com.google.gms:google-services:4.3.15'
     }
 }
 

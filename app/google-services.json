@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "605415066948",
+    "project_id": "seerealapp",
+    "storage_bucket": "seerealapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605415066948:android:d9fe5ad69df1a16a545b11",
+        "android_client_info": {
+          "package_name": "com.example.seerealapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "605415066948-6f34t6tjef755438ugcn45ra4a4cse7t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC29MXqmpC1G4QaBJx53Pwq5Fdlsn4pszo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "605415066948-6f34t6tjef755438ugcn45ra4a4cse7t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
