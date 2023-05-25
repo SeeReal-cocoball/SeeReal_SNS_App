@@ -1,21 +1,48 @@
 package com.example.seerealapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 import android.util.Log
-import com.example.seerealapp.databinding.ActivityMainBinding
+import android.view.Menu
+import android.view.MenuItem
+import com.example.seerealapp.databinding.ActivityMainBinding.*
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
-    val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    val binding by lazy { inflate(layoutInflater) }
+
+
+    // 메뉴 바를 생성해서 화면에 붙이기 위한 과정
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        binding.mainToolbar.inflateMenu(R.menu.main_menus)
+        return true
+    }
+
+    // 레코드로 갈 수 있는 메뉴 아이템을 만들고 해당하는 메뉴아이템을 화면에 할당 후 엑티비티 전환할 수 있도록 할당
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.goToFriendList -> {
+                true
+            }
+            R.id.goToMyProfile -> {
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        setSupportActionBar(binding.mainToolbar)
+
+
 
 
 
