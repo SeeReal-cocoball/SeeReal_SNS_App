@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.seereal_login.Camera.Camera
 import com.example.seereal_login.databinding.ActivityMainBinding
 import com.google.firebase.database.*
 
@@ -40,6 +41,12 @@ class MainActivity : AppCompatActivity() {
         // 전화번호가 일치하면 비밀번호 입력창으로 넘어간다
         val phone = binding.phone
         val phoneBtn = binding.phonebtn
+
+        binding.camera.setOnClickListener{
+            val intent3 = Intent(this@MainActivity, Camera::class.java)
+            startActivity(intent3)
+        }
+
 
         // 입력 버튼을 누르고 회원 존재 여부를 판단한다
         // 회원이 존재 하지 않으면 register화면으로 넘어가는 팝업이 뜬다 => 구현해야 함
