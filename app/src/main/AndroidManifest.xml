@@ -22,11 +22,11 @@
         android:theme="@style/Theme.Seereal_login"
         tools:targetApi="31">
         <activity
+            android:name=".Feed.FriendFeed"
+            android:exported="false" />
+        <activity
             android:name=".Feed.MyFeed"
-            android:exported="false" >
-
-        </activity>
-        <!-- 저장소의 이미지를 imageView로 출력하기 위해 권한 추가 -->
+            android:exported="false"></activity> <!-- 저장소의 이미지를 imageView로 출력하기 위해 권한 추가 -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="seereal_login.fileprovider"
@@ -60,7 +60,6 @@
         <activity
             android:name=".MyFirebaseMessagingService"
             android:exported="false" />
-
         <activity
             android:name=".PasswordPage"
             android:exported="false" />
@@ -69,11 +68,10 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- 파이어베이스 서비스 연동 -->
+        </activity> <!-- 파이어베이스 서비스 연동 -->
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">

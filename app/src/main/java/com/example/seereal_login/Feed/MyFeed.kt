@@ -11,12 +11,18 @@ import java.util.Date
 import java.util.Locale
 
 class MyFeed : AppCompatActivity() {
+
     private val binding by lazy { ActivityMyFeedBinding.inflate(layoutInflater) }
+    private var imageUri: Uri? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        // 동그라미 (친구피드)누르면 아래 화면이 바뀌어야 한다.
+        // 동그라미 눌러서 친구 피드 들어가기
+        binding.friend1.setOnClickListener{
+            val friendFeed = Intent(this, FriendFeed::class.java)
+            startActivity(friendFeed)
+        }
 
         // update date
         var dateToday = binding.today
@@ -38,5 +44,16 @@ class MyFeed : AppCompatActivity() {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val currentDate = Date()
         return dateFormat.format(currentDate)
+    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // 이미지 상태 저장
+        outState.putParcelable("imageUri", imageUri)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        // 이미지 상태 복원
+        imageUri = savedInstanceState.getParcelable("imageUri")
     }
 }

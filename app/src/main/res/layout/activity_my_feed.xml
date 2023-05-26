@@ -37,7 +37,7 @@
         android:id="@+id/friend1"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="52dp"
+        android:layout_marginStart="45dp"
         android:layout_marginTop="130dp"
         android:layout_marginEnd="8dp"
         android:width="50dp"
@@ -129,8 +129,11 @@
         android:id="@+id/comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="337dp"
         android:text="TextView"
-        tools:layout_editor_absoluteX="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="651dp" />
 
     <TextView
