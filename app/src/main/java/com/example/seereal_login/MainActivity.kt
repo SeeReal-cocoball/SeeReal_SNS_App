@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.seereal_login.Camera.Camera
+import com.example.seereal_login.Feed.FriendFeed
 import com.example.seereal_login.databinding.ActivityMainBinding
 import com.google.firebase.database.*
 
@@ -15,12 +16,6 @@ class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private lateinit var databaseRef: DatabaseReference  // database reference 가져오기
-
-    // PasswordPage로 전환하는 함수
-    fun navigateToPasswordPage() {
-        val intent = Intent(this@MainActivity, PasswordPage::class.java)
-        startActivity(intent)
-    }
 
     fun navigateToRegisterPage() {
         val intent2 = Intent(this@MainActivity, SignPhoneNumber::class.java)
@@ -60,21 +55,19 @@ class MainActivity : AppCompatActivity() {
             //val valueEventListener = object : ValueEventListener
             usersRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                    var count = 0;
                     // 모든 outerkey를 확인해서 사용자가 입력한 전화번호와 일치하는 사용자 정보가 존재하는지 확인
                     for (outerSnapshot in dataSnapshot.children) {
                         val outerKey = outerSnapshot.key // 바깥쪽 "key" 값을 가져옴
                         Log.d("REAL", "Outer Key: $outerKey")
+                        if (phoneTxt == outerKey) {
+                            count = 1
 
-                        // 안쪽 key값 가져오기
-//                        for (innerSnapshot in outerSnapshot.children) {
-//                            val innerKey = innerSnapshot.key // 안쪽 "key" 값을 가져옴
-//                            val innerValue = innerSnapshot.value // 해당 "key"에 대한 값을 가져옴
-//                            Log.d("REAL", "Inner Key: $innerKey, Value: " +
-//                                    "$innerValue")
-//                        }
-                        if(phoneTxt == outerKey){
-                            Toast.makeText(this@MainActivity, "welcome", Toast.LENGTH_SHORT).show()
-                            break;
+                        } else continue
+                    }
+                        if(count == 1){
+                            Toast.makeText(this@MainActivity, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
                         } else{
                             Toast.makeText(this@MainActivity, "register now", Toast.LENGTH_SHORT).show()
                             //  회원가입 진행 여부 popup
@@ -95,7 +88,7 @@ class MainActivity : AppCompatActivity() {
                                 .show()
                         }
                     }
-                }
+
                    override fun onCancelled(databaseError: DatabaseError) {
                         // 에러 처리
                         Toast.makeText(
