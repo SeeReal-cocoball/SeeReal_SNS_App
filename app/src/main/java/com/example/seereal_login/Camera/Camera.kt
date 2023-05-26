@@ -12,6 +12,7 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.seereal_login.Feed.MyFeed
 import com.example.seereal_login.databinding.ActivityCameraBinding
 import java.io.File
 import java.io.FileOutputStream
@@ -49,6 +50,15 @@ class Camera : AppCompatActivity() {
                 Toast.makeText(this,"사진을 찍을 수 없어요",Toast.LENGTH_SHORT).show()
             }
         }
+
+        // img update to my feed
+        binding.updateImg.setOnClickListener{
+            val intent = Intent(this, MyFeed::class.java)
+            intent.putExtra("imageUri", imgUri.toString()) // 이미지의 URI를 전달
+            startActivity(intent)
+        }
+
+
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -59,6 +69,9 @@ class Camera : AppCompatActivity() {
                     val imageBitmap = data?.extras?.get("data") as Bitmap
                     saveBitmapAsJPGFile(imageBitmap)
                     binding.imageView.setImageBitmap(imageBitmap)
+
+                    // 이미지를 찍을 후에만 update button 활성화
+                    binding.updateImg.isEnabled = true
                 }
             }
         }
@@ -66,7 +79,6 @@ class Camera : AppCompatActivity() {
     private fun newJpgFileName() : String {
         val sdf = SimpleDateFormat("yyyyMMdd_HHmmss")
         val filename = sdf.format(System.currentTimeMillis())
-
         return "${filename}.jpg"
     }
 

@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         // users 노드에 접근하고, 사용자 정보를 저장하거나 가져올 수 있다.
         val usersRef: DatabaseReference = firebaseDatabase.getReference("users")  // users 레퍼런스 가져오기
 
-        // 전화번호가 일치하면 비밀번호 입력창으로 넘어간다
+        // 전화번호가 일치하면(기존회원일경우) 비밀번호 입력창으로 넘어간다
         val phone = binding.phone
         val phoneBtn = binding.phonebtn
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.seereal_login.Feed.MyFeed
 import com.example.seereal_login.databinding.ActivitySignPasswordBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -49,7 +50,7 @@ class SignPassword : AppCompatActivity() {
                 Log.d("REAL","success regist")
                 Toast.makeText(this, "db에 저장 완료, 회원가입 완료!",Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(this@SignPassword, MainPage::class.java)
+                val intent = Intent(this@SignPassword, MyFeed::class.java)
                 startActivity(intent)
 
             } else {
