@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity() {
 
                         } else continue
                     }
+
                         if(count == 1){
                             Toast.makeText(this@MainActivity, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
                         } else{
