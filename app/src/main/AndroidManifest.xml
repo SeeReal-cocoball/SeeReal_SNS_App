@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <!-- 카메라  촬영 후 저장가능 권한 설정-->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"></uses-permission>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,13 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Seereal_login"
         tools:targetApi="31">
+        <activity
+            android:name=".Camera.Camera"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/img"/>
+            android:resource="@drawable/img" />
         <meta-data
             android:name="com.google.fierbse.messaging.default_notification_color"
-            android:resource="@color/purple_700"/>
+            android:resource="@color/purple_700" />
 
         <activity
             android:name=".SignPassword"
@@ -47,9 +52,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-<!--파이어베이스 서비스 연동-->
+        </activity> <!-- 파이어베이스 서비스 연동 -->
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">

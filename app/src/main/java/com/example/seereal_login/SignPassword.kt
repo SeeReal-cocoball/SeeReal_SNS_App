@@ -9,7 +9,6 @@ import com.example.seereal_login.databinding.ActivitySignPasswordBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-
 class SignPassword : AppCompatActivity() {
     private val binding by lazy { ActivitySignPasswordBinding.inflate(layoutInflater) }
     private lateinit var databaseRef: DatabaseReference  // database reference 가져오기

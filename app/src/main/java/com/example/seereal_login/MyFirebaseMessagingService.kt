@@ -9,11 +9,13 @@ import android.content.Intent
 import android.os.Build
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
+import com.example.seereal_login.Camera.Camera
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 const val channelId = "notification_channel"
 const val channelName = "com.example.seereal_login"
+
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -22,7 +24,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             generateNotification(remoteMessage.notification!!.title!!, remoteMessage.notification!!.body!!)
         }
     }
-@SuppressLint ("RemoteViewLayout")
+    @SuppressLint ("RemoteViewLayout")
     fun getRemoteView(title:String, message: String): RemoteViews {
         val remoteView = RemoteViews("com.example.seereal_login",R.layout.notification)
         remoteView.setTextViewText(R.id.title,title)
@@ -32,7 +34,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         return remoteView
     }
     private fun generateNotification(title:String, message:String){
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, Camera::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
         val pendingIntent = PendingIntent.getActivity(this@MyFirebaseMessagingService, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -53,7 +55,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             val notificationChannel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
             notificationManager.createNotificationChannel(notificationChannel)
         }
-
         notificationManager.notify(0, builder.build())
     }
 }

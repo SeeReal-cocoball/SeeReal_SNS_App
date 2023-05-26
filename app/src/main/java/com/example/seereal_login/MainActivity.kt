@@ -65,9 +65,9 @@ class MainActivity : AppCompatActivity() {
 //                            Log.d("REAL", "Inner Key: $innerKey, Value: " +
 //                                    "$innerValue")
 //                        }
-
                         if(phoneTxt == outerKey){
                             Toast.makeText(this@MainActivity, "welcome", Toast.LENGTH_SHORT).show()
+                            break;
                         } else{
                             Toast.makeText(this@MainActivity, "register now", Toast.LENGTH_SHORT).show()
                             //  회원가입 진행 여부 popup
