@@ -36,7 +36,6 @@ class MyFeed : AppCompatActivity() {
             val uri = Uri.parse(imageUri)
             binding.myImg.setImageURI(uri)
         }
-
     }
 
     // 오늘 날짜

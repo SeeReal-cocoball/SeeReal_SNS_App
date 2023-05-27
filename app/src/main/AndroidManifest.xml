@@ -22,11 +22,14 @@
         android:theme="@style/Theme.Seereal_login"
         tools:targetApi="31">
         <activity
+            android:name=".Dialog"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"/>
+        <activity
             android:name=".Feed.FriendFeed"
             android:exported="false" />
         <activity
             android:name=".Feed.MyFeed"
-            android:exported="false"></activity> <!-- 저장소의 이미지를 imageView로 출력하기 위해 권한 추가 -->
+            android:exported="false" /> <!-- 저장소의 이미지를 imageView로 출력하기 위해 권한 추가 -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="seereal_login.fileprovider"

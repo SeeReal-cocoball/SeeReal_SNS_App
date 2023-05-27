@@ -18,18 +18,18 @@ class SignPhoneNumber : AppCompatActivity() {
         setContentView(binding.root)
 
         val receivedPhoneNumber = intent.getStringExtra("newPhoneNumber")
-        val signphone = binding.signphone
+        val signphone = binding.signphonenumber
 
         // string type -> edit type
         signphone.text = Editable.Factory.getInstance().newEditable(receivedPhoneNumber)
 //  여기서도 사용할 수 있는지 확인해줘야겠음
 
 
-        var signphonebutton = binding.signphonebtn
+        val signphonebutton = binding.signphonebtn
 
         signphonebutton.setOnClickListener(){
             // 사용자가 입력한 전화번호
-            var signPhoneInput = signphone.text.toString()
+            val signPhoneInput = signphone.text.toString()
 
 
             // 입력한 회원가입 전화번호 비밀번호 페이지로 넘기기

@@ -1,6 +1,6 @@
 package com.example.seereal_login
 
-import android.content.DialogInterface
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.seereal_login.Camera.Camera
-import com.example.seereal_login.Feed.FriendFeed
 import com.example.seereal_login.databinding.ActivityMainBinding
 import com.google.firebase.database.*
 
@@ -16,11 +15,6 @@ class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private lateinit var databaseRef: DatabaseReference  // database reference 가져오기
-
-    fun navigateToRegisterPage() {
-        val intent2 = Intent(this@MainActivity, SignPhoneNumber::class.java)
-        startActivity(intent2)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +36,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent3)
         }
 
-
         // 입력 버튼을 누르고 회원 존재 여부를 판단한다
         // 회원이 존재 하지 않으면 register화면으로 넘어가는 팝업이 뜬다 => 구현해야 함
-        phoneBtn.setOnClickListener() {
+        phoneBtn.setOnClickListener {
             // 사용자가 입력한 전화번호
             val phoneTxt = phone.text.toString()
 
@@ -55,40 +48,40 @@ class MainActivity : AppCompatActivity() {
             //val valueEventListener = object : ValueEventListener
             usersRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                    var count = 0;
+                    var count = 0
                     // 모든 outerkey를 확인해서 사용자가 입력한 전화번호와 일치하는 사용자 정보가 존재하는지 확인
                     for (outerSnapshot in dataSnapshot.children) {
                         val outerKey = outerSnapshot.key // 바깥쪽 "key" 값을 가져옴
                         Log.d("REAL", "Outer Key: $outerKey")
                         if (phoneTxt == outerKey) {
                             count = 1
-
                         } else continue
                     }
-
-                        if(count == 1){
-                            Toast.makeText(this@MainActivity, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
-                        } else{
-                            Toast.makeText(this@MainActivity, "register now", Toast.LENGTH_SHORT).show()
-                            //  회원가입 진행 여부 popup
-                            AlertDialog.Builder(this@MainActivity)
-                                .setTitle("Seereal을 시작해보세요!")
-                                .setMessage("회원가입을 진행하시겠습니까??")
-                                .setPositiveButton("네네!", DialogInterface.OnClickListener { dialog, which ->
-                                    // 회원가입을 하겠다고 클릭했을 경우 전화번호 입력창으로 넘어감
-                                    val intent = Intent(this@MainActivity, SignPhoneNumber::class.java)
-                                    intent.putExtra("newPhoneNumber", phoneTxt) // 입력한 번화번호 넘겨주기
-                                    startActivity(intent)
-                                    })
-                                .setNegativeButton("아니요", DialogInterface.OnClickListener { dialog, which ->
-                                    Toast.makeText(this@MainActivity, "What?????", Toast.LENGTH_SHORT).show()
-                                })
-                                .setNeutralButton("...",DialogInterface.OnClickListener { dialog, which ->
-                                    Toast.makeText(this@MainActivity, "...", Toast.LENGTH_SHORT).show() })
-                                .show()
-                        }
+                    if(count == 1){
+                        Toast.makeText(this@MainActivity, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
+                    } else{
+                        Toast.makeText(this@MainActivity, "register now", Toast.LENGTH_SHORT).show()
+                        //  회원가입 진행 여부 popup
+                        AlertDialog.Builder(this@MainActivity)
+                            .setTitle("Seereal을 시작해보세요!")
+                            .setMessage("회원가입을 진행하시겠습니까??")
+                            .setPositiveButton("Yes") { dialog, which ->
+                                // 회원가입을 하겠다고 클릭했을 경우 전화번호 입력창으로 넘어감
+                                val intent = Intent(this@MainActivity, Camera::class.java)
+                                startActivity(intent)
+                                dialog.dismiss()
+                                Log.d("REAL","turn to register page")
+                                }
+                            .setNegativeButton("아니요"){ dialog, which ->
+                                Toast.makeText(this@MainActivity, "What?????", Toast.LENGTH_SHORT).show()
+                                dialog.dismiss()
+                                Log.d("REAL","do not register")
+                            }
+                            .setNeutralButton("..."){dialog, which ->
+                                Toast.makeText(this@MainActivity, "...", Toast.LENGTH_SHORT).show() }
+                            .show()
                     }
+                }
 
                    override fun onCancelled(databaseError: DatabaseError) {
                         // 에러 처리

@@ -9,9 +9,9 @@
 
     <EditText
         android:id="@+id/phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="215dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="phone number"
         android:inputType="number|textPersonName"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textVie4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -41,7 +41,7 @@
         android:text="지금 뭐하고 계신가요?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textVie4" />
 
     <TextView
         android:id="@+id/textView3"
@@ -82,8 +82,8 @@
 
     <EditText
         android:id="@+id/originpassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="212dp"
+        android:layout_height="51dp"
         android:ems="10"
         android:hint="password"
         android:inputType="number|numberPassword"
