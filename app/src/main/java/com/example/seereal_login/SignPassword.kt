@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.seereal_login.Camera.Camera
 import com.example.seereal_login.Feed.MyFeed
 import com.example.seereal_login.databinding.ActivitySignPasswordBinding
 import com.google.firebase.database.DatabaseReference
@@ -41,17 +42,17 @@ class SignPassword : AppCompatActivity() {
             if(signPasswordInput == checkPasswordInput){
                 newUser(receivedPhoneNumber!!,recievedNickname!!,signPasswordInput)
                 // database에 회원정보 저장
+
 //                val usersRef = firebaseDatabase.getReference("users")
 //                val  outerKey = usersRef.child(receivedPhoneNumber!!) // 전화번호를 키로 사용
 //                Log.d("REAL","outer key is ${outerKey}")
 //                outerKey.child("nickname").setValue(recievedNickname)
 //                outerKey.child("password").setValue(signPasswordInput)
+                val intent = Intent(this@SignPassword, Camera::class.java)
+                startActivity(intent)
 
                 Log.d("REAL","success regist")
                 Toast.makeText(this, "db에 저장 완료, 회원가입 완료!",Toast.LENGTH_SHORT).show()
-
-                val intent = Intent(this@SignPassword, MyFeed::class.java)
-                startActivity(intent)
 
             } else {
                 Toast.makeText(this, "try again",Toast.LENGTH_SHORT).show()

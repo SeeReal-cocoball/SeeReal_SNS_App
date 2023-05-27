@@ -21,8 +21,9 @@ class SignPhoneNumber : AppCompatActivity() {
         val signphone = binding.signphonenumber
 
         // string type -> edit type
-        signphone.text = Editable.Factory.getInstance().newEditable(receivedPhoneNumber)
-//  여기서도 사용할 수 있는지 확인해줘야겠음
+        if (receivedPhoneNumber != null) {
+            signphone.text = Editable.Factory.getInstance().newEditable(receivedPhoneNumber)
+        }//  여기서도 사용할 수 있는지 확인해줘야겠음
 
 
         val signphonebutton = binding.signphonebtn

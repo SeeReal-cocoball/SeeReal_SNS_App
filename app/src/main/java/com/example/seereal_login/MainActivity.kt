@@ -1,6 +1,7 @@
 package com.example.seereal_login
 
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         val phoneBtn = binding.phonebtn
 
         binding.camera.setOnClickListener{
-            val intent3 = Intent(this@MainActivity, Camera::class.java)
+            val intent3 = Intent(this@MainActivity, SignPhoneNumber::class.java)
             startActivity(intent3)
         }
 
@@ -65,20 +66,20 @@ class MainActivity : AppCompatActivity() {
                         AlertDialog.Builder(this@MainActivity)
                             .setTitle("Seereal을 시작해보세요!")
                             .setMessage("회원가입을 진행하시겠습니까??")
-                            .setPositiveButton("Yes") { dialog, which ->
+                            .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, which ->
                                 // 회원가입을 하겠다고 클릭했을 경우 전화번호 입력창으로 넘어감
-                                val intent = Intent(this@MainActivity, Camera::class.java)
+                                val intent = Intent(this@MainActivity, SignPhoneNumber::class.java)
                                 startActivity(intent)
-                                dialog.dismiss()
+                                //dialog.dismiss()
                                 Log.d("REAL","turn to register page")
-                                }
-                            .setNegativeButton("아니요"){ dialog, which ->
+                                })
+                            .setNegativeButton("아니요",  DialogInterface.OnClickListener { dialog, which ->
                                 Toast.makeText(this@MainActivity, "What?????", Toast.LENGTH_SHORT).show()
                                 dialog.dismiss()
                                 Log.d("REAL","do not register")
-                            }
-                            .setNeutralButton("..."){dialog, which ->
-                                Toast.makeText(this@MainActivity, "...", Toast.LENGTH_SHORT).show() }
+                            })
+                            .setNeutralButton("...", DialogInterface.OnClickListener {dialog, which ->
+                                Toast.makeText(this@MainActivity, "...", Toast.LENGTH_SHORT).show() })
                             .show()
                     }
                 }

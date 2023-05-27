@@ -8,14 +8,14 @@
 
     <EditText
         android:id="@+id/signphonenumber"
-        android:layout_width="197dp"
-        android:layout_height="50dp"
+        android:layout_width="187dp"
+        android:layout_height="53dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="19dp"
         android:layout_marginBottom="476dp"
         android:ems="10"
-        android:hint="phone number"
+        android:hint="phone"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/signphonebtn"
@@ -41,10 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
         android:layout_marginEnd="55dp"
-        android:layout_marginBottom="473dp"
         android:backgroundTint="#C1E3E8"
         android:text="입력"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/signphonenumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/signphonenumber" />
 
