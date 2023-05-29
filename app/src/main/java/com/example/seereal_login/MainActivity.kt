@@ -1,6 +1,7 @@
 package com.example.seereal_login
 
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         val password = binding.originpassword
 
         binding.camera.setOnClickListener {
-            val intent3 = Intent(this@MainActivity, SignPhoneNumber::class.java)
+            val intent3 = Intent(this@MainActivity, Camera::class.java)
             startActivity(intent3)
         }
 
@@ -73,6 +74,21 @@ class MainActivity : AppCompatActivity() {
                                 .simpleName} ")
                             // 일치 시 로그인 진행
                             if (userCheck.toString() == passwordTxt) {
+
+                                // 로컬 저장소 test ################
+                                val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+                                val username = sharedPreferences.getString("user", "")
+                                Log.d("geon_local_check","저장 전 $username")
+
+                                val editor = sharedPreferences.edit()
+                                editor.putString("user", phoneTxt) // 사용자 저장
+                                editor.apply()
+
+                                val username2 = sharedPreferences.getString("user", "")
+                                Log.d("geon_local_test","로컬저장소 저장 여부 $username2")
+                                // #############################
+
+
                                 val intent3 = Intent(this@MainActivity, Camera::class.java)
                                 startActivity(intent3)
                             } else {
@@ -134,6 +150,7 @@ class MainActivity : AppCompatActivity() {
 
 
         //      < test 데이터 추가 코드 >
+    /*
         data class UserData(
             val nickname: String,
             val password: String? = null,
@@ -146,14 +163,15 @@ class MainActivity : AppCompatActivity() {
             val database = Firebase.database
             val userRef = database.getReference("users")
             //userRef.setValue("Hello, World!")
-            for (i in 21..25) {
+            for (i in 10..20) {
                 val user = "010123400${i}"
-                userRef.child(user).setValue(UserData("wxyz$i", "123", "test", "test"))
+                userRef.child(user).setValue(UserData("HiJK$i", "123", "test", "test"))
                 Log.d("iise", "각 번호 -> $user")
             }
             Log.d("iise", userRef.toString())
         }
         writeNewUser()
+    */
 
     }
 
