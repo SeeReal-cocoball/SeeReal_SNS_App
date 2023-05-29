@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.seereal_login.Camera.Camera
 import com.example.seereal_login.databinding.ActivityMainBinding
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,8 +33,9 @@ class MainActivity : AppCompatActivity() {
         // 전화번호가 일치하면(기존회원일경우) 비밀번호 입력창으로 넘어간다
         val phone = binding.phone
         val phoneBtn = binding.phonebtn
+        val password = binding.originpassword
 
-        binding.camera.setOnClickListener{
+        binding.camera.setOnClickListener {
             val intent3 = Intent(this@MainActivity, SignPhoneNumber::class.java)
             startActivity(intent3)
         }
@@ -42,49 +45,81 @@ class MainActivity : AppCompatActivity() {
         phoneBtn.setOnClickListener {
             // 사용자가 입력한 전화번호
             val phoneTxt = phone.text.toString()
+            val passwordTxt = password.text.toString()
 
             // Phone number를 입력하지 않고 버튼을 눌렀을 경우
-            if (phoneTxt.isEmpty()) {Toast.makeText(this, "Please enter your phone number", Toast.LENGTH_SHORT).show()}
+            if (phoneTxt.isEmpty()) {
+                Toast.makeText(this, "Please enter your phone number", Toast.LENGTH_SHORT).show()
+            } else {
+                //val valueEventListener = object : ValueEventListener
+                usersRef.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        var count = 0
+                        // 모든 outerkey를 확인해서 사용자가 입력한 전화번호와 일치하는 사용자 정보가 존재하는지 확인
+                        for (outerSnapshot in dataSnapshot.children) {
+                            val outerKey = outerSnapshot.key // 바깥쪽 "key" 값을 가져옴
+                            // Log.d("REAL", "Outer Key: $outerKey")
+                            if (phoneTxt == outerKey) {
+                                count = 1
+                            } else continue
+                        }
+                        if (count == 1) {
 
-            //val valueEventListener = object : ValueEventListener
-            usersRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    var count = 0
-                    // 모든 outerkey를 확인해서 사용자가 입력한 전화번호와 일치하는 사용자 정보가 존재하는지 확인
-                    for (outerSnapshot in dataSnapshot.children) {
-                        val outerKey = outerSnapshot.key // 바깥쪽 "key" 값을 가져옴
-                        Log.d("REAL", "Outer Key: $outerKey")
-                        if (phoneTxt == outerKey) {
-                            count = 1
-                        } else continue
+                            // 비밀번호 비교를 위한 변수 설정
+                            val userCheck = dataSnapshot.child(phoneTxt).child("password").value
+                            Log.d("testchk","userCheck : ${userCheck}, & ${userCheck!!::class
+                                .simpleName} ")
+                            Log.d("testinput","passwordTxt : $passwordTxt, & ${passwordTxt!!::class
+                                .simpleName} ")
+                            // 일치 시 로그인 진행
+                            if (userCheck.toString() == passwordTxt) {
+                                val intent3 = Intent(this@MainActivity, Camera::class.java)
+                                startActivity(intent3)
+                            } else {
+                                Toast.makeText(this@MainActivity, "비밀번호를 확인해주세요.", Toast
+                                    .LENGTH_SHORT)
+                                    .show()
+                                    }
+                        } else {
+                            Toast.makeText(this@MainActivity, "register now", Toast.LENGTH_SHORT)
+                                .show()
+                            //  회원가입 진행 여부 popup
+                            AlertDialog.Builder(this@MainActivity)
+                                .setTitle("Seereal을 시작해보세요!")
+                                .setMessage("회원정보가 없습니다. 회원가입을 진행하시겠습니까??")
+                                .setPositiveButton(
+                                    "Yes",
+                                    DialogInterface.OnClickListener { dialog, which ->
+                                        // 회원가입을 하겠다고 클릭했을 경우 전화번호 입력창으로 넘어감
+                                        val intent =
+                                            Intent(this@MainActivity, SignPhoneNumber::class.java)
+                                        startActivity(intent)
+                                        //dialog.dismiss()
+                                        Log.d("REAL", "turn to register page")
+                                    })
+                                .setNegativeButton(
+                                    "아니요",
+                                    DialogInterface.OnClickListener { dialog, which ->
+                                        Toast.makeText(
+                                            this@MainActivity,
+                                            "What?????",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        dialog.dismiss()
+                                        Log.d("REAL", "do not register")
+                                    })
+                                .setNeutralButton(
+                                    "...",
+                                    DialogInterface.OnClickListener { dialog, which ->
+                                        Toast.makeText(this@MainActivity, "...", Toast.LENGTH_SHORT)
+                                            .show()
+                                    })
+                                .show()
+                        }
                     }
-                    if(count == 1){
-                        Toast.makeText(this@MainActivity, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
-                    } else{
-                        Toast.makeText(this@MainActivity, "register now", Toast.LENGTH_SHORT).show()
-                        //  회원가입 진행 여부 popup
-                        AlertDialog.Builder(this@MainActivity)
-                            .setTitle("Seereal을 시작해보세요!")
-                            .setMessage("회원가입을 진행하시겠습니까??")
-                            .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, which ->
-                                // 회원가입을 하겠다고 클릭했을 경우 전화번호 입력창으로 넘어감
-                                val intent = Intent(this@MainActivity, SignPhoneNumber::class.java)
-                                startActivity(intent)
-                                //dialog.dismiss()
-                                Log.d("REAL","turn to register page")
-                                })
-                            .setNegativeButton("아니요",  DialogInterface.OnClickListener { dialog, which ->
-                                Toast.makeText(this@MainActivity, "What?????", Toast.LENGTH_SHORT).show()
-                                dialog.dismiss()
-                                Log.d("REAL","do not register")
-                            })
-                            .setNeutralButton("...", DialogInterface.OnClickListener {dialog, which ->
-                                Toast.makeText(this@MainActivity, "...", Toast.LENGTH_SHORT).show() })
-                            .show()
-                    }
-                }
 
-                   override fun onCancelled(databaseError: DatabaseError) {
+
+                    override fun onCancelled(databaseError: DatabaseError) {
                         // 에러 처리
                         Toast.makeText(
                             this@MainActivity,
@@ -94,7 +129,32 @@ class MainActivity : AppCompatActivity() {
                     }
                 })
             }
+
         }
+
+
+        //      < test 데이터 추가 코드 >
+        data class UserData(
+            val nickname: String,
+            val password: String? = null,
+            val profile: String? = null,
+            val introduction: String? = null,
+            val friends: Map<String, Boolean>? = null
+        )
+
+        fun writeNewUser() {
+            val database = Firebase.database
+            val userRef = database.getReference("users")
+            //userRef.setValue("Hello, World!")
+            for (i in 21..25) {
+                val user = "010123400${i}"
+                userRef.child(user).setValue(UserData("wxyz$i", "123", "test", "test"))
+                Log.d("iise", "각 번호 -> $user")
+            }
+            Log.d("iise", userRef.toString())
+        }
+        writeNewUser()
+
     }
 
-
+}
