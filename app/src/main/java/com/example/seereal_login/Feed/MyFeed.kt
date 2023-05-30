@@ -99,8 +99,6 @@ class MyFeed : AppCompatActivity() {
                 Toast.makeText(this, "문제가 발생했습니다. 다시 시도해주세요", Toast.LENGTH_LONG).show()
             }
         }
-
-
     }
 
     // 오늘 날짜
