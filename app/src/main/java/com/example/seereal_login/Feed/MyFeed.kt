@@ -14,6 +14,11 @@ import com.example.seereal_login.Friend.Friend_manage
 import com.example.seereal_login.R
 import com.example.seereal_login.databinding.ActivityMyFeedBinding
 import com.example.seereal_login.databinding.ActivitySignNicknameBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.text.SimpleDateFormat
@@ -65,6 +70,23 @@ class MyFeed : AppCompatActivity() {
             val friendFeed = Intent(this, FriendFeed::class.java)
             startActivity(friendFeed)
         }
+
+        // 피드에 대한 위치정보 수정
+        val database = Firebase.database
+        val today = SimpleDateFormat("yyyyMMdd").format(System.currentTimeMillis())
+
+        val usersRef = database.getReference("users")
+        val userFeed = usersRef.child(user.toString()).child("feed").child(today)
+
+            userFeed.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val address = dataSnapshot.child("address").value
+                    val location = binding.location
+                    location.text = address.toString()
+                }
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
 
         // update date
         var dateToday = binding.today

@@ -38,8 +38,6 @@ class Friend_manage : AppCompatActivity() {
             tab.text = tabs.get(position)
         }.attach()
 
-
-
         // 이건 그냥 데이터베이스에 데이터 추가하는 부분 구현해봄
         val database = Firebase.database
 
