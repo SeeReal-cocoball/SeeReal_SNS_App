@@ -8,14 +8,20 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.example.seereal_login.Camera.Camera
 import com.example.seereal_login.Friend.Friend_manage
 import com.example.seereal_login.R
 import com.example.seereal_login.databinding.ActivityMyFeedBinding
 import com.example.seereal_login.databinding.ActivitySignNicknameBinding
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import com.squareup.picasso.Picasso
+
+
 
 class MyFeed : AppCompatActivity() {
 
@@ -66,12 +72,35 @@ class MyFeed : AppCompatActivity() {
         val currentDate = getCurrentDate()
         dateToday.text = currentDate
 
+
+        // Firebase Storage 초기화
+        val storage: FirebaseStorage = FirebaseStorage.getInstance()
+        val storageRef: StorageReference = storage.reference
+
         // put image on screen
         val imageUri = intent.getStringExtra("imageUri")
         if (imageUri != null) {
             val uri = Uri.parse(imageUri)
             binding.myImg.setImageURI(uri)
+        } else {
+            // 이미지 다운로드 및 표시
+            val sdf = SimpleDateFormat("yyyyMMdd")
+            val filename = sdf.format(System.currentTimeMillis())
+
+            val imageRef: StorageReference = storageRef.child("users")
+                .child("$user").child("feed")
+                .child("$filename.jpg")
+
+            imageRef.downloadUrl.addOnSuccessListener { uri ->
+                // 이미지 다운로드 성공
+                Picasso.get().load(uri).into(binding.myImg)
+            }.addOnFailureListener { exception ->
+                // 이미지 다운로드 실패
+                Toast.makeText(this, "문제가 발생했습니다. 다시 시도해주세요", Toast.LENGTH_LONG).show()
+            }
         }
+
+
     }
 
     // 오늘 날짜
