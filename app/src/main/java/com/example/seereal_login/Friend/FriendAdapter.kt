@@ -29,7 +29,7 @@ class FriendAdapter (val myFriend:MutableList<User>): RecyclerView.Adapter<Frien
     class ViewHolder(val binding:MyfriendsVeiwBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(friend: User) {
             binding.nickname.text = friend.nickname
-            binding.profilePhoto.text = friend.profile
+            //binding.profilePhoto.text = friend.profile
             binding.userIntroduction.text = friend.introduction
         }
     }

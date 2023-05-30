@@ -31,7 +31,7 @@ class SearchAdapter (val myFriend:MutableList<User>): RecyclerView.Adapter<Searc
     class ViewHolder (val binding: SearchfriendsVeiwBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(friend: User) {
             binding.nickname.text = friend.nickname
-            binding.profilePhoto.text = friend.profile
+            //binding.profilePhoto.text = friend.profile
             binding.userIntroduction.text = friend.introduction
         }
     }
