@@ -45,7 +45,7 @@ class SearchAdapter (private val context: Context, val myFriend:MutableList<User
             val sharedPreferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
             val username = sharedPreferences.getString("user", "")
 
-            binding.addFriendBtn.setOnClickListener{
+            binding.delFriendBtn.setOnClickListener{
                 val database = Firebase.database
                 val userRef = database.getReference("users")
                 userRef.child("$username").child("friends").child("${friend.phone}").setValue(true)

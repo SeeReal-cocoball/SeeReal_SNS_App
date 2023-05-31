@@ -79,14 +79,15 @@ class MyFriendFragment : Fragment() {
                                 val nickname = snapshot.child("nickname").value.toString()
                                 val profile = snapshot.child("profile").value?.toString() ?: ""
                                 val introduction = snapshot.child("introduction").value?.toString() ?: ""
+                                val phone = snapshot.key
 
                                 // FriendData 객체를 생성하여 정보를 저장
-                                val friendData = User(nickname,null, profile, introduction)
+                                val friendData = User(nickname,null, profile, introduction,null,phone)
                                 myFriends.add(friendData)
 
                                 // 친구들 정보가 다 담아졌을 때 리사이클러 뷰 연결
                                 if (myFriends.size == dataSnapshot.childrenCount.toInt()) {
-                                    val friendAdapter = FriendAdapter(myFriends)
+                                    val friendAdapter = FriendAdapter(requireContext(),myFriends)
                                     binding.recyclerviewMF.adapter = friendAdapter
                                     binding.recyclerviewMF.layoutManager = LinearLayoutManager(binding.root.context)
                                 }

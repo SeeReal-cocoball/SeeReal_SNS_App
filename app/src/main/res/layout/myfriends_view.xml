@@ -38,7 +38,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/addFriendBtn"
+            android:id="@+id/delFriendBtn"
             android:layout_width="67dp"
             android:layout_height="wrap_content"
             android:text="삭제" />
