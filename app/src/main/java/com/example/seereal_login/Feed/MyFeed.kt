@@ -84,18 +84,19 @@ class MyFeed : AppCompatActivity() {
 
         val usersRef = database.getReference("users")
         val userFeed = usersRef.child(user.toString())
-            userFeed.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val nickname = dataSnapshot.child("nickname").value
-                    val address = dataSnapshot.child("feed").child(today).child("address").value
-                    val showNick = binding.textView8
-                    val location = binding.location
-                    showNick.text = nickname.toString()
-                    location.text = address.toString()
-                }
-                override fun onCancelled(error: DatabaseError) {
-                }
-            })
+
+        userFeed.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val nickname = dataSnapshot.child("nickname").value
+                val address = dataSnapshot.child("feed").child(today).child("address").value
+                val showNick = binding.textView8
+                val location = binding.location
+                showNick.text = nickname.toString()
+                location.text = address.toString()
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
 
         // update date
         var dateToday = binding.today

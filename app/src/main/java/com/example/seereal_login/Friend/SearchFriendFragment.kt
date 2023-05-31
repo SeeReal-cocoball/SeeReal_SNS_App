@@ -1,5 +1,6 @@
 package com.example.seereal_login.Friend
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -68,10 +69,12 @@ class SearchFriendFragment : Fragment() {
                     val nickname = userSnapshot.child("nickname").value.toString()
                     val profile = userSnapshot.child("profile").value?.toString() ?: ""
                     val introduction = userSnapshot.child("introduction").value?.toString() ?: ""
+                    val phone = userSnapshot.key
 
                     // userData 객체를 생성하여 정보를 저장
-                    val userData = User(nickname,null, profile, introduction)
+                    val userData = User(nickname,null, profile, introduction,null,phone)
                     originalList.add(userData)
+                    Log.d("geon_list_test","$originalList")
                 }
             }
             override fun onCancelled(error: DatabaseError) {
@@ -96,7 +99,7 @@ class SearchFriendFragment : Fragment() {
                     it.nickname!!.contains(newText, ignoreCase = true)
                 }
 
-                val searchAdapter = SearchAdapter(filteredList as MutableList<User>)
+                val searchAdapter = SearchAdapter(requireContext(), filteredList as MutableList<User>)
                 binding.recyclerviewSF.adapter = searchAdapter
                 binding.recyclerviewSF.layoutManager = LinearLayoutManager(binding.root.context)
 
@@ -110,7 +113,7 @@ class SearchFriendFragment : Fragment() {
     private fun updateRecyclerView(dataList: List<User>) {
 
         // 어댑터에 새로운 데이터 설정하여 업데이트
-        val searchAdapter = SearchAdapter(dataList as MutableList<User>)
+        val searchAdapter = SearchAdapter(requireContext(), dataList as MutableList<User>)
         binding.recyclerviewSF.adapter = searchAdapter
         binding.recyclerviewSF.layoutManager = LinearLayoutManager(binding.root.context)
 

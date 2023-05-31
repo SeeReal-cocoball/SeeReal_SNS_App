@@ -67,7 +67,7 @@ class MyFriendFragment : Fragment() {
 
             userFriends.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-
+                    val myFriends= mutableListOf<User>()
                     for (friendSnapshot in dataSnapshot.children) {
                         val friendId = friendSnapshot.key  // 유저의 친구들 식별자 가져오기
 
@@ -91,7 +91,6 @@ class MyFriendFragment : Fragment() {
                                     binding.recyclerviewMF.layoutManager = LinearLayoutManager(binding.root.context)
                                 }
                             }
-
 
                             override fun onCancelled(error: DatabaseError) {
                                 Log.w("iise", "Failed to read friend data.", error.toException())

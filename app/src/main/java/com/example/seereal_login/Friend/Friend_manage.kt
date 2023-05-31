@@ -47,7 +47,5 @@ class Friend_manage : AppCompatActivity() {
             userRef.child(number).setValue(user)
             Log.d("iise","데이터저장")
         }
-
-
     }
 }
