@@ -62,7 +62,6 @@ class SearchFriendFragment : Fragment() {
 
         usersRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-
                 // 전체 유저 데이터 담아오기
                 for (userSnapshot in snapshot.children) {
 

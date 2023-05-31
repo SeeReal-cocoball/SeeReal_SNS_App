@@ -1,5 +1,6 @@
 package com.example.seereal_login.Friend
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -52,8 +53,10 @@ class MyFriendFragment : Fragment() {
         // 파이어베이스 데이터베이스
         val database = Firebase.database
 
-        // 현재 유저정보 (임시로 할당)
-        val userId = "01012340001"
+        // 현재 유저정보
+        val sharedPreferences = context?.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val userId = sharedPreferences?.getString("user", "")
+
 
         // 내 친구들 확인해서 리사이클러 뷰에 표시해주는 함수
         fun checkMyFriends () {
@@ -63,7 +66,7 @@ class MyFriendFragment : Fragment() {
 
             // 데이터 베이스 경로 할당
             val usersRef = database.getReference("users")
-            val userFriends = usersRef.child(userId).child("friends")
+            val userFriends = usersRef.child(userId.toString()).child("friends")
 
             userFriends.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {

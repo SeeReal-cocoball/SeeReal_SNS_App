@@ -52,7 +52,7 @@ class SignNickname : AppCompatActivity() {
                         //  중복 닉네임 검사 후 진짜로 이 닉네임을 사용할 건지 묻는 popup
                         AlertDialog.Builder(this@SignNickname)
                             .setTitle("닉네임 설정")
-                            .setMessage("${signNickNameInput}으로 회원가입을 진행할까?")
+                            .setMessage("${signNickNameInput}으로 회원가입을 진행할까요?")
                             .setPositiveButton("네네!", DialogInterface.OnClickListener { dialog, which ->
                                 // 회원가입을 하겠다고 클릭했을 경우
                                 // 정보도 넘겨야 함
