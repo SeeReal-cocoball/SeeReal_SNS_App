@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.example.seereal_login.Camera.Camera
 import com.example.seereal_login.Friend.Friend_manage
+import com.example.seereal_login.Map.MapView
 import com.example.seereal_login.R
 import com.example.seereal_login.databinding.ActivityMyFeedBinding
 import com.example.seereal_login.databinding.ActivitySignNicknameBinding
@@ -71,17 +72,25 @@ class MyFeed : AppCompatActivity() {
             startActivity(friendFeed)
         }
 
-        // 피드에 대한 위치정보 수정
+        binding.goToMap.setOnClickListener{
+            val intent = Intent(this,MapView::class.java)
+            startActivity(intent)
+        }
+
+
+        // 피드에 대한 위치정보 및 유저 닉네임 수정
         val database = Firebase.database
         val today = SimpleDateFormat("yyyyMMdd").format(System.currentTimeMillis())
 
         val usersRef = database.getReference("users")
-        val userFeed = usersRef.child(user.toString()).child("feed").child(today)
-
+        val userFeed = usersRef.child(user.toString())
             userFeed.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val address = dataSnapshot.child("address").value
+                    val nickname = dataSnapshot.child("nickname").value
+                    val address = dataSnapshot.child("feed").child(today).child("address").value
+                    val showNick = binding.textView8
                     val location = binding.location
+                    showNick.text = nickname.toString()
                     location.text = address.toString()
                 }
                 override fun onCancelled(error: DatabaseError) {

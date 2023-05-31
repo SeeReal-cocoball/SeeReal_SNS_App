@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.seereal_login.User
-import com.example.seereal_login.databinding.MyfriendsVeiwBinding
+import com.example.seereal_login.databinding.MyfriendsViewBinding
 
 class FriendAdapter (val myFriend:MutableList<User>): RecyclerView.Adapter<FriendAdapter
 .ViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = MyfriendsVeiwBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = MyfriendsViewBinding.inflate(LayoutInflater.from(parent.context), parent,
+            false)
         return ViewHolder(binding)
     }
 
@@ -26,7 +27,7 @@ class FriendAdapter (val myFriend:MutableList<User>): RecyclerView.Adapter<Frien
     }
 
     // 받아온 데이터 화면에 연결
-    class ViewHolder(val binding:MyfriendsVeiwBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: MyfriendsViewBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(friend: User) {
             binding.nickname.text = friend.nickname
             //binding.profilePhoto.text = friend.profile

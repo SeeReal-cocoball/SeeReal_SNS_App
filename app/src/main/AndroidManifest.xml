@@ -23,6 +23,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar"
         tools:targetApi="31">
+
+        <activity
+            android:name=".Map.MapView"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Light.Dialog"/>
         <activity
             android:name=".Friend.Friend_manage"
             android:exported="false" />
@@ -52,6 +57,12 @@
         <meta-data
             android:name="com.google.fierbse.messaging.default_notification_color"
             android:resource="@color/purple_700" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".SignPassword"
@@ -81,6 +92,10 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 
 </manifest>
